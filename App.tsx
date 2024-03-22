@@ -1,28 +1,29 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
-import CharacterPage from "./src/components/Character/Characte";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+//icons
+import { AntDesign } from "@expo/vector-icons";
+//screen
+import Home from "./src/screen/Home";
+
+//NAVIGATION
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Character from "./src/components/Character/Character";
+
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const queryClient = new QueryClient();
-
   return (
     <QueryClientProvider client={queryClient}>
-      <View style={styles.container}>
-        <Text>Rick and Morty</Text>
-        <StatusBar style="auto" />
-        <CharacterPage />
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} options={{}} />
+          <Stack.Screen name="Character" component={Character} options={{}} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </QueryClientProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

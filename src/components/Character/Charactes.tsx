@@ -1,51 +1,49 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, Pressable } from "react-native";
 import { Image } from "expo-image";
 import React from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
-import { getCharaters } from "../../api/apiConect";
+import { useNavigation } from "@react-navigation/native";
+import { useAllCharacters } from "../../features/character/hooks/useCharacter";
 
 export default function CharacterPage() {
   const queryClient = useQueryClient();
-  const {
-    data: results,
-    isLoading,
-    error,
-    isPending,
-  } = useQuery({
-    queryKey: ["character"],
-    queryFn: getCharaters,
-  });
+  const navigation = useNavigation();
+  const { data, error, isLoading } = useAllCharacters();
 
   console.log("erro", error, "loading:", isLoading);
+
   const blurhash =
     "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Character</Text>
+      <Text>Select and press for character information </Text>
       <FlatList
         horizontal
         style={styles.listStyle}
         numColumns={1}
-        data={results}
+        data={data}
         renderItem={({ item }) =>
           isLoading ? (
-            <View style={styles.listContent}>
-              <Text>Loading....</Text>
-            </View>
+            <Text>Loadgin....</Text>
           ) : (
-            <View style={styles.listContent}>
-              <Image
-                style={styles.imageStyle}
-                placeholder={blurhash}
-                contentFit="contain"
-                transition={1000}
-                source={item.image}
-              />
-              <Text style={styles.textName}>Name: {item.name}</Text>
-              <Text>Species: {item.species}</Text>
-            </View>
+            <Pressable
+              onPress={() => navigation.navigate("Character", { id: item.id })}
+            >
+              <View style={styles.listContent}>
+                <Image
+                  style={styles.imageStyle}
+                  placeholder={blurhash}
+                  contentFit="contain"
+                  transition={1000}
+                  source={item.image}
+                />
+                <Text style={styles.textName}>Name: {item.name}</Text>
+                <Text>Species: {item.species}</Text>
+              </View>
+            </Pressable>
           )
         }
       />
@@ -75,7 +73,7 @@ const styles = StyleSheet.create({
   container: {
     height: 400,
   },
-  imageStyle: {    
+  imageStyle: {
     borderWidth: 1,
     borderColor: "red",
     width: 250,

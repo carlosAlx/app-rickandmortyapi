@@ -1,6 +1,6 @@
-export interface Root {
+export interface CharactersResponse {
     info: Info
-    results: Result[]
+    results: Character[]
   }
   
   export interface Info {
@@ -10,7 +10,7 @@ export interface Root {
     prev: any
   }
   
-  export interface Result {
+  export interface Character{
     id: number
     name: string
     status: string
@@ -34,4 +34,3 @@ export interface Root {
     name: string
     url: string
   }
-  
