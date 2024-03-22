@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { useNavigation } from "@react-navigation/native";
 import { useAllCharacters } from "../../features/character/hooks/useCharacter";
+import { stylesGlobal } from "../../styles/stylesGrobal";
 
 export default function CharacterPage() {
   const queryClient = useQueryClient();
@@ -17,7 +18,7 @@ export default function CharacterPage() {
     "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
   return (
-    <View style={styles.container}>
+    <View style={stylesGlobal.container}>
       <Text style={styles.title}>Character</Text>
       <Text>Select and press for character information </Text>
       <FlatList
@@ -34,7 +35,7 @@ export default function CharacterPage() {
             >
               <View style={styles.listContent}>
                 <Image
-                  style={styles.imageStyle}
+                  style={stylesGlobal.image}
                   placeholder={blurhash}
                   contentFit="contain"
                   transition={1000}
@@ -52,8 +53,6 @@ export default function CharacterPage() {
 }
 const styles = StyleSheet.create({
   textName: {
-    // color: "white",
-    //backgroundColor: "green",
     padding: 10,
   },
   title: {

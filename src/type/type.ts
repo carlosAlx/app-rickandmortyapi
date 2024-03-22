@@ -2,14 +2,12 @@ export interface CharactersResponse {
     info: Info
     results: Character[]
   }
-  
   export interface Info {
     count: number
     pages: number
     next: string
     prev: any
   }
-  
   export interface Character{
     id: number
     name: string
@@ -24,12 +22,10 @@ export interface CharactersResponse {
     url: string
     created: string
   }
-  
   export interface Origin {
     name: string
     url: string
   }
-  
   export interface Location {
     name: string
     url: string
